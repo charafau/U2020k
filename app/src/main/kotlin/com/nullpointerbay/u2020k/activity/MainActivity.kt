@@ -15,9 +15,7 @@ class MainActivity : BaseActivity() {
 
         initToolbar()
         initFragment()
-
     }
-
 
     private fun initFragment() {
         val ft = supportFragmentManager.beginTransaction()

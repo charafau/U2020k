@@ -7,9 +7,14 @@ import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinInjected
 import com.github.salomonbrys.kodein.KodeinInjector
 import com.nullpointerbay.u2020k.R
+import com.nullpointerbay.u2020k.di.daoModule
+import rx.Scheduler
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 interface BaseView {
     fun tag(): String
@@ -35,5 +40,17 @@ abstract class BaseFragment : Fragment(), KodeinInjected {
     }
 
     abstract fun inject(): Unit
+
+}
+
+abstract class BasePresenter() : KodeinInjected {
+
+    override val injector = KodeinInjector()
+
+    init {
+        injector.inject(Kodein {
+            import(daoModule())
+        })
+    }
 
 }
