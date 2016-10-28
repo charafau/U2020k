@@ -1,11 +1,16 @@
 package com.nullpointerbay.u2020k.di
 
+import android.util.Log
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.instance
 import com.github.salomonbrys.kodein.provider
 import com.nullpointerbay.u2020k.dao.RepoDao
 import com.nullpointerbay.u2020k.dao.RepoDaoImpl
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
+import okhttp3.ResponseBody
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,7 +20,17 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 
 fun daoModule() = Kodein.Module {
-    bind<OkHttpClient>() with provider { OkHttpClient() }
+    bind<OkHttpClient>() with provider {
+
+        val logger = HttpLoggingInterceptor()
+        logger.level = HttpLoggingInterceptor.Level.BODY
+
+        val builder = OkHttpClient.Builder()
+        .addInterceptor(logger)
+        .build()
+        builder
+
+    }
     bind<RepoDao>() with provider { RepoDaoImpl(instance()) }
     bind<Retrofit>() with provider {
         Retrofit.Builder()
@@ -26,3 +41,4 @@ fun daoModule() = Kodein.Module {
                 .build()
     }
 }
+
