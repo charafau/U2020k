@@ -13,3 +13,6 @@ for unit tests you can use either `testProdDebugUnitTest` or `testMockDebugUnitT
  or
 
 > ./gradlew testMockDebugUnitTest
+
+
+![Screenshot](https://raw.githubusercontent.com/charafau/U2020k/master/screenshot.png)
