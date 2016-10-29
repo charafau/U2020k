@@ -2,6 +2,8 @@ package com.nullpointerbay.u2020k.model
 
 import com.google.gson.annotations.SerializedName
 
+//TODO: add PaperParcel
+
 data class ApiSummary(
         @SerializedName("total_count")
         val totalCount: Int,
@@ -34,7 +36,7 @@ data class User(
         val login: String,
         val id: Int,
         @SerializedName("avatar_url")
-        val avatarUrl: String,
+        val avatarUrl: String?,
         val url: String,
         @SerializedName("html_url")
         val htmlUrl: String,

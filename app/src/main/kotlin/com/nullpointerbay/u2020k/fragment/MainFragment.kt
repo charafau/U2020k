@@ -41,7 +41,6 @@ class MainFragment : BaseFragment(), MainView {
     override fun inject() {
         injector.inject(Kodein {
             extend(appKodein())
-            import(daoModule())
             import(mainPrestenterModule(this@MainFragment))
 
         })
@@ -73,7 +72,6 @@ class MainFragment : BaseFragment(), MainView {
     override fun onResume() {
         super.onResume()
         presenter.loadRepos()
-        Log.e("test", "I'm Main Fragment")
     }
 
     override fun tag() = "MainFragment"
@@ -90,6 +88,7 @@ class RepoAdapter(var repos: List<Repo>) : RecyclerView.Adapter<RepoAdapter.View
         val repo = repos[position]
         holder!!.bind(repo)
     }
+    //Anko usage - some error with card view style ;(
 //        return ViewHolder(RepoItemUI().createView(AnkoContext.Companion.create(parent!!.context, parent)))
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int) = ViewHolder(parent?.inflate(R.layout.item_repo)!!)
@@ -112,7 +111,12 @@ class RepoAdapter(var repos: List<Repo>) : RecyclerView.Adapter<RepoAdapter.View
             txtDesc.text = repo.fullName
             txtForks.text = repo.forks.toString()
             txtStars.text = repo.stargazersCount.toString()
-            Picasso.with(itemView.context).load(repo.owner.avatarUrl).transform(CircleTransform()).into(imgAvatar)
+            if(repo.owner.avatarUrl != null){
+                Picasso.with(itemView.context).load(repo.owner.avatarUrl)
+                        .transform(CircleTransform()).into(imgAvatar)
+            }else{
+                Picasso.with(itemView.context).load(R.drawable.avatar).transform(CircleTransform()).into(imgAvatar)
+            }
         }
 
 

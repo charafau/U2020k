@@ -26,6 +26,7 @@ class MainPresenterImpl(val view: MainView, val repoDao: RepoDao, val ioSchedule
                         val mainThreadScheduler: Scheduler = AndroidSchedulers.mainThread()) : BasePresenter(), MainPresenter, KodeinInjected {
 
     override fun loadRepos() {
+        //TODO: add composite subscription
         repoDao.downloadSomething()
                 .subIoObserveMain(ioScheduler, mainThreadScheduler)
                 .subscribe({

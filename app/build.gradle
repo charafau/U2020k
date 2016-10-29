@@ -20,8 +20,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        mock {
+            applicationIdSuffix = ".mock"
+        }
+        prod {
+
+        }
+    }
+
+    // Remove mockRelease as it's not needed.
+    android.variantFilter { variant ->
+        if (variant.buildType.name.equals('release')
+                && variant.getFlavors().get(0).name.equals('mock')) {
+            variant.setIgnore(true);
+        }
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        prod.java.srcDirs += 'src/prod/kotlin'
+        mock.java.srcDirs += 'src/mock/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
 
     }
@@ -63,8 +83,6 @@ dependencies {
     testCompile 'org.jetbrains.spek:spek-junit-platform-engine:1.0.89'
     testCompile 'org.junit.platform:junit-platform-runner:1.0.0-M2'
     testCompile "com.nhaarman:mockito-kotlin:0.10.0"
-
-
 
 
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+//TODO: add more useful extensions like click(observable -> Unit)
 fun Int.dpToPx(context: Context) = this * context.resources.displayMetrics.density
 
 fun View.show() {

@@ -12,9 +12,6 @@ import com.github.salomonbrys.kodein.KodeinInjected
 import com.github.salomonbrys.kodein.KodeinInjector
 import com.nullpointerbay.u2020k.R
 import com.nullpointerbay.u2020k.di.daoModule
-import rx.Scheduler
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 
 interface BaseView {
     fun tag(): String
@@ -46,11 +43,5 @@ abstract class BaseFragment : Fragment(), KodeinInjected {
 abstract class BasePresenter() : KodeinInjected {
 
     override val injector = KodeinInjector()
-
-    init {
-        injector.inject(Kodein {
-            import(daoModule())
-        })
-    }
 
 }
