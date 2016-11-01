@@ -4,17 +4,20 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
+import com.nullpointerbay.u2020k.IntegrationTests
 import com.nullpointerbay.u2020k.dao.RepoDao
 import com.nullpointerbay.u2020k.model.ApiSummary
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
+import org.junit.experimental.categories.Category
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 import rx.Observable
 import rx.schedulers.Schedulers
 
 @RunWith(JUnitPlatform::class)
+@Category(IntegrationTests::class)
 class MainPresenterTest : Spek({
 
     val mockView = mock<MainView> {

@@ -7,11 +7,10 @@ import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.KodeinInjected
 import com.github.salomonbrys.kodein.KodeinInjector
 import com.nullpointerbay.u2020k.R
-import com.nullpointerbay.u2020k.di.daoModule
+import org.jetbrains.anko.*
 
 interface BaseView {
     fun tag(): String
@@ -24,6 +23,30 @@ abstract class BaseActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+}
+
+abstract class FragmentBaseActivity : BaseActivity() {
+    protected fun root(fragment: BaseFragment) {
+        verticalLayout {
+            lparams(width = matchParent, height = matchParent)
+            val toolbar = toolbar(theme = R.style.ThemeOverlay_AppCompat_Dark_ActionBar) {
+                lparams(width = matchParent, height = wrapContent)
+                backgroundResource = R.color.colorPrimary
+                popupTheme = R.style.ThemeOverlay_AppCompat_Light
+
+            }
+            setActionBar(toolbar)
+            val frameId = View.generateViewId()
+
+            frameLayout {
+                id = frameId
+                lparams(width = matchParent, height = wrapContent)
+            }
+
+            supportFragmentManager.beginTransaction().replace(frameId, fragment, fragment.tag).commit()
+
+        }
     }
 }
 

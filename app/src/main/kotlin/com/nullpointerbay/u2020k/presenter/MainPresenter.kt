@@ -13,17 +13,22 @@ import rx.schedulers.Schedulers
 
 interface MainPresenter {
     fun loadRepos(): Unit
+    fun clickRepo(repo: Repo)
 }
 
 
 interface MainView : BaseView {
     fun printValue(testRepo: String)
     fun showRepos(items: List<Repo>)
-
+    fun navigateToDetailView(repo: Repo)
 }
 
 class MainPresenterImpl(val view: MainView, val repoDao: RepoDao, val ioScheduler: Scheduler = Schedulers.io(),
                         val mainThreadScheduler: Scheduler = AndroidSchedulers.mainThread()) : BasePresenter(), MainPresenter, KodeinInjected {
+
+    override fun clickRepo(repo: Repo) {
+        view.navigateToDetailView(repo)
+    }
 
     override fun loadRepos() {
         //TODO: add composite subscription

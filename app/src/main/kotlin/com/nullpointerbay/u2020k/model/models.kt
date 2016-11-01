@@ -1,18 +1,25 @@
 package com.nullpointerbay.u2020k.model
 
 import com.google.gson.annotations.SerializedName
+import nz.bradcampbell.paperparcel.PaperParcel
+import nz.bradcampbell.paperparcel.PaperParcelable
 
 //TODO: add PaperParcel
-
+@PaperParcel
 data class ApiSummary(
         @SerializedName("total_count")
         val totalCount: Int,
         @SerializedName("incomplete_results")
         val incompleteResults: Boolean,
         @SerializedName("items")
-        val items: List<Repo>)
+        val items: List<Repo>) : PaperParcelable {
+    companion object {
+        @JvmField val CREATOR = PaperParcelable.Creator(ApiSummary::class.java)
+    }
+}
 
 
+@PaperParcel
 data class Repo(
         val id: Int,
         val name: String,
@@ -29,9 +36,14 @@ data class Repo(
         @SerializedName("forks")
         val forks: Int,
         @SerializedName("language")
-        val language: String)
+        val language: String) : PaperParcelable {
+    companion object {
+        @JvmField val CREATOR = PaperParcelable.Creator(Repo::class.java)
+    }
+}
 
 
+@PaperParcel
 data class User(
         val login: String,
         val id: Int,
@@ -41,4 +53,8 @@ data class User(
         @SerializedName("html_url")
         val htmlUrl: String,
         @SerializedName("followers_url")
-        val followersUrl: String)
+        val followersUrl: String) : PaperParcelable {
+    companion object {
+        @JvmField val CREATOR = PaperParcelable.Creator(User::class.java)
+    }
+}

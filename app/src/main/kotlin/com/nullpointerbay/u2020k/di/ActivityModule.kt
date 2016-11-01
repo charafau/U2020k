@@ -9,7 +9,7 @@ import com.nullpointerbay.u2020k.presenter.MainPresenterImpl
 import com.nullpointerbay.u2020k.presenter.MainView
 
 
-fun mainPrestenterModule(view: MainView) = Kodein.Module {
+fun mainPresenterModule(view: MainView) = Kodein.Module {
     bind<MainPresenter>() with provider { MainPresenterImpl(view, instance()) }
 }
 
